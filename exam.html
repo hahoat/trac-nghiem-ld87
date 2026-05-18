@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Làm Bài Trắc Nghiệm - LĐ87</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="exam.css"/>
+</head>
+<body>
+
+<!-- ===== SETUP SCREEN ===== -->
+<div id="setup-screen" class="screen active">
+  <div class="bg-orbs"><div class="orb o1"></div><div class="orb o2"></div></div>
+  <div class="setup-wrap">
+    <div class="setup-card">
+      <div class="setup-header">
+        <div class="setup-icon" id="setup-icon">🎯</div>
+        <div class="setup-subject-tag" id="setup-subject-name">Trắc Nghiệm</div>
+        <div class="setup-exam-tag" id="setup-exam-num">Mã đề ?</div>
+        <h1 class="setup-title" id="setup-title">Thi Thử</h1>
+        <p class="setup-desc" id="setup-desc">Đề bài được random, không xem đáp án khi làm bài</p>
+      </div>
+      <div class="setup-body">
+        <div class="form-group">
+          <label class="form-label">👤 Tên của bạn</label>
+          <input type="text" id="player-name" class="form-input" placeholder="Nhập tên..." maxlength="40"/>
+        </div>
+        <div class="form-group" id="time-group">
+          <label class="form-label">⏱️ Thời gian làm bài</label>
+          <div class="time-options">
+            <button class="time-btn active" data-time="30">30 phút</button>
+            <button class="time-btn" data-time="45">45 phút</button>
+            <button class="time-btn" data-time="60">60 phút</button>
+            <button class="time-btn" data-time="90">90 phút</button>
+            <button class="time-btn" data-time="0">Không giới hạn</button>
+          </div>
+        </div>
+        <div class="setup-info-box">
+          <div class="info-row"><span>❓ Số câu hỏi:</span><span id="info-questions">50 câu</span></div>
+          <div class="info-row"><span>⏰ Thời gian:</span><span id="info-time">30 phút</span></div>
+        </div>
+        <div class="setup-q-preview" id="setup-q-count">50 câu hỏi</div>
+        <button id="start-btn" class="start-btn">🚀 Bắt đầu làm bài</button>
+        <a href="index.html" class="back-link">← Quay về trang chủ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EXAM SCREEN ===== -->
+<div id="exam-screen" class="screen">
+  <header class="exam-header">
+    <div class="exam-header-left">
+      <div class="exam-logo">📚 LĐ87</div>
+      <div class="exam-mode-badge" id="mode-badge">THI THỬ</div>
+    </div>
+    <div class="exam-header-center">
+      <div class="timer-display" id="timer-display">
+        <span class="timer-icon">⏱️</span>
+        <span id="timer-text">30:00</span>
+      </div>
+    </div>
+    <div class="exam-header-right">
+      <span id="current-q-label" style="font-size:13px;color:#94a3b8;">Câu 1/50</span>
+      <button id="submit-btn" class="submit-btn">📝 Nộp bài</button>
+    </div>
+  </header>
+
+  <div class="exam-body">
+    <aside class="question-nav" id="question-nav">
+      <div class="nav-header">
+        <span>Bảng câu hỏi</span>
+        <span id="nav-answered">0/0</span>
+      </div>
+      <div class="nav-grid" id="nav-grid"></div>
+      <div class="nav-legend">
+        <div class="legend-item"><div class="nav-dot answered"></div>Đã trả lời</div>
+        <div class="legend-item"><div class="nav-dot current"></div>Đang làm</div>
+        <div class="legend-item"><div class="nav-dot unanswered"></div>Chưa làm</div>
+      </div>
+    </aside>
+
+    <main class="question-main">
+      <div class="question-card" id="question-card">
+        <div class="question-subject-line" id="question-subject"></div>
+        <div class="question-number" id="question-number">Câu 1</div>
+        <div class="question-text" id="question-text"></div>
+        <div class="answer-list" id="answer-list"></div>
+        <div class="question-nav-btns">
+          <button id="prev-btn" class="nav-btn secondary">← Câu trước</button>
+          <button id="next-btn" class="nav-btn primary">Câu sau →</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="result-screen" class="screen">
+  <div class="bg-orbs"><div class="orb o1"></div><div class="orb o2"></div></div>
+  <div class="result-wrap">
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-emoji" id="result-emoji">🎉</div>
+        <h2 class="result-title" id="result-title">Hoàn thành!</h2>
+        <p class="result-name" id="result-name"></p>
+        <p class="result-subject-tag" id="result-subject"></p>
+      </div>
+      <div class="score-circle-wrap">
+        <svg class="score-ring" viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+        </svg>
+        <div class="score-center">
+          <div class="score-num" id="score-num">0/0</div>
+          <div class="score-pct" id="score-pct">0%</div>
+        </div>
+      </div>
+      <div class="result-stats">
+        <div class="result-stat correct"><div class="rs-num" id="rs-correct">0</div><div class="rs-lbl">✅ Đúng</div></div>
+        <div class="result-stat wrong"><div class="rs-num" id="rs-wrong">0</div><div class="rs-lbl">❌ Sai</div></div>
+        <div class="result-stat skipped"><div class="rs-num" id="rs-skipped">0</div><div class="rs-lbl">⬜ Bỏ</div></div>
+      </div>
+      <div class="result-actions">
+        <button id="review-btn" class="result-btn primary">🔍 Xem lại bài làm</button>
+        <a href="index.html" class="result-btn secondary">🔄 Chọn đề khác</a>
+        <a href="index.html" class="result-btn ghost">🏠 Trang chủ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REVIEW SCREEN ===== -->
+<div id="review-screen" class="screen">
+  <header class="exam-header">
+    <div class="exam-header-left">
+      <div class="exam-logo">📚 LĐ87</div>
+      <div class="exam-mode-badge review-badge">XEM LẠI</div>
+    </div>
+    <div class="exam-header-center">
+      <span style="font-size:13px;color:#94a3b8;" id="review-score-label"></span>
+    </div>
+    <div class="exam-header-right">
+      <button onclick="showScreen('result-screen')" class="nav-btn secondary" style="padding:8px 16px;font-size:13px;">← Kết quả</button>
+    </div>
+  </header>
+  <div class="review-body" id="review-body"></div>
+</div>
+
+<script src="exam.js"></script>
+</body>
+</html>
